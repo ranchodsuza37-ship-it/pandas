@@ -1,0 +1,136 @@
+import pandas as pd
+
+# Extended keywords for each ad group
+tempo_traveller_keywords = [
+    "tempo traveller hire in delhi",
+    "delhi to manali tempo traveller",
+    "tempo traveller for shimla trip",
+    "tempo traveller rental for group tour",
+    "12 seater tempo traveller booking",
+    "9 seater tempo traveller delhi",
+    "17 seater tempo traveller hire delhi",
+    "delhi tempo traveller on rent",
+    "tempo traveller rental near me",
+    "outstation tempo traveller hire delhi",
+    "tempo traveller for family trip",
+    "luxury tempo traveller delhi",
+    "delhi tempo traveller service",
+    "tempo traveller for school trip",
+    "delhi airport tempo traveller hire"
+]
+
+car_rental_keywords = [
+    "car rental in delhi",
+    "innova rental in delhi",
+    "suv on rent delhi",
+    "delhi to manali car rental",
+    "delhi car hire for outstation",
+    "affordable car rental delhi",
+    "sedan rental in delhi",
+    "outstation car hire delhi",
+    "innova on rent delhi",
+    "cab rental delhi",
+    "mini bus rental delhi",
+    "tempo traveller for small group",
+    "luxury car rental delhi",
+    "delhi airport car rental",
+    "car rental for sightseeing delhi"
+]
+
+himachal_keywords = [
+    "delhi to manali tour package",
+    "shimla kullu manali package from delhi",
+    "himachal tour packages from delhi",
+    "manali shimla honeymoon package",
+    "himachal family trip package",
+    "delhi to shimla tour package",
+    "kullu manali deluxe package",
+    "himachal adventure tour from delhi",
+    "delhi to manali sightseeing tour",
+    "shimla manali couple package",
+    "himachal group tour package",
+    "manali shimla budget package",
+    "luxury himachal tour package",
+    "winter holiday packages himachal",
+    "summer trip to manali from delhi"
+]
+
+goa_rajasthan_keywords = [
+    "goa tour package from delhi",
+    "rajasthan tour package from delhi",
+    "delhi to goa holiday package",
+    "jaipur ajmer udaipur rajasthan tour",
+    "luxury goa beach holiday",
+    "delhi to jaipur rajasthan package",
+    "goa honeymoon package from delhi",
+    "goa family tour package",
+    "rajasthan royal tour package",
+    "goa sightseeing tour package",
+    "beach holiday packages from delhi",
+    "goa adventure tour package",
+    "rajasthan cultural tour delhi",
+    "delhi goa deluxe package",
+    "affordable goa trip package"
+]
+
+# Function to generate ad rows
+def generate_ads(campaign, ad_group, keywords, final_url, headlines, descriptions, paths):
+    ads = []
+    for kw in keywords:
+        ads.append([campaign, ad_group, kw, "Phrase", final_url] + headlines + descriptions + paths)
+    return ads
+
+# Headlines and Descriptions for campaigns
+tempo_headlines = ["Tempo Traveller on Rent in Delhi", "9/12/17 Seater Luxury Vehicles", "Book Clean & Comfortable Tempo Travellers"]
+tempo_descriptions = ["Hire Tempo Traveller for Manali, Shimla, Agra Trips.", "Call Now or Book Online!"]
+tempo_paths = ["tempo", "traveller"]
+
+car_headlines = ["Car Rental in Delhi", "Outstation & Local Trips", "Affordable & Trusted Service"]
+car_descriptions = ["Book Innova, Sedan or SUV for your next trip.", "Call 9871989138 or Enquire Online."]
+car_paths = ["car", "rental"]
+
+himachal_headlines = ["Manali & Shimla Tour Packages", "Family & Couple Trips", "Trusted Delhi Travel Agency"]
+himachal_descriptions = ["Book Himachal, Uttarakhand & North India Tours from Delhi.", "Call Now for Best Deals on Holiday Packages!"]
+himachal_paths = ["holiday", "packages"]
+
+goa_headlines = ["Goa & Rajasthan Tour Packages", "Luxury & Affordable Trips", "All-Inclusive Packages"]
+goa_descriptions = ["Book Goa, Rajasthan & Kashmir Trips with Hotel + Transport.", "Call Now or Enquire Online for Offers!"]
+goa_paths = ["india", "tours"]
+
+# Generate Ads data
+ads_data = []
+ads_data += generate_ads("Tempo Traveller Rentals", "Tempo Traveller Delhi", tempo_traveller_keywords,
+                         "https://thebroadwaytravels.com/12-seater-tempo-traveller-hire-in-delhi/", tempo_headlines, tempo_descriptions, tempo_paths)
+ads_data += generate_ads("Tempo Traveller Rentals", "Car Rental Delhi", car_rental_keywords,
+                         "https://thebroadwaytravels.com/12-seater-tempo-traveller-hire-in-delhi/", car_headlines, car_descriptions, car_paths)
+ads_data += generate_ads("Domestic Holiday Packages", "Himachal & North India", himachal_keywords,
+                         "https://thebroadwaytravels.com/domastic", himachal_headlines, himachal_descriptions, himachal_paths)
+ads_data += generate_ads("Domestic Holiday Packages", "Goa & Rajasthan Packages", goa_rajasthan_keywords,
+                         "https://thebroadwaytravels.com/domastic", goa_headlines, goa_descriptions, goa_paths)
+
+ads_df = pd.DataFrame(ads_data, columns=["Campaign", "Ad Group", "Keyword", "Criterion Type", "Final URL", 
+                                         "Headline 1", "Headline 2", "Headline 3", "Description 1", "Description 2",
+                                         "Path 1", "Path 2"])
+
+# Call Extensions
+call_df = pd.DataFrame([
+    ["Tempo Traveller Rentals", "Call Extension", "9871989138", "IN", "Enabled", "Mobile"],
+    ["Domestic Holiday Packages", "Call Extension", "9871989138", "IN", "Enabled", "Mobile"]
+], columns=["Campaign", "Extension Type", "Phone Number", "Country", "Call Reporting", "Device Preference"])
+
+# Sitelinks
+sitelink_df = pd.DataFrame([
+    ["Tempo Traveller Rentals", "Sitelink", "Tempo Traveller Hire", "https://thebroadwaytravels.com/12-seater-tempo-traveller-hire-in-delhi/", "Book 9/12/17 Seater Traveller", "Clean & Comfortable Vehicles"],
+    ["Tempo Traveller Rentals", "Sitelink", "Contact Us", "https://thebroadwaytravels.com/contact/", "Quick Enquiry Form", "Get a Free Quote"],
+    ["Domestic Holiday Packages", "Sitelink", "Manali Packages", "https://thebroadwaytravels.com/domastic", "Family & Couple Packages", "Best Offers from Delhi"],
+    ["Domestic Holiday Packages", "Sitelink", "Goa Trips", "https://thebroadwaytravels.com/domastic", "Beach Holidays", "Book Your Goa Vacation"]
+], columns=["Campaign", "Extension Type", "Sitelink Text", "Final URL", "Description Line 1", "Description Line 2"])
+
+# Save to Excel with multiple sheets
+excel_file = "Broadway_Travels_Google_Ads_Full.xlsx"
+with pd.ExcelWriter(excel_file) as writer:
+    ads_df.to_excel(writer, sheet_name="Ads", index=False)
+    call_df.to_excel(writer, sheet_name="Call Extensions", index=False)
+    sitelink_df.to_excel(writer, sheet_name="Sitelinks", index=False)
+
+print(f"Excel file '{excel_file}' is ready!")
